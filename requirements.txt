@@ -1,2 +1,2 @@
 breeze_connect
-nsetools
+openpyxl
