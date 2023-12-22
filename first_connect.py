@@ -9,7 +9,7 @@ print("Connected")
 time.sleep(1)
 # Generate Session
 breeze.generate_session(api_secret="7461r00e81824W51^0q17n7a8P4764#0",
-                        session_token="29488172")
+                        session_token="29628383")
 time.sleep(1)
 # read stock symbols from Pala_Group_Companies.xlsx and store in a list
 df = pd.read_excel('Pala_Group_Companies.xlsx', sheet_name='Sheet1')
@@ -20,8 +20,8 @@ stock_list = df['ICICI Stock Symbol'].tolist()
 for stock in stock_list:
     #print(stock)
     entries = breeze.get_historical_data_v2(interval="1day",
-                            from_date= "2021-01-01T07:00:00.000Z",
-                            to_date= "2023-12-20T15:30:00.000Z",
+                            from_date= "2023-12-12T07:00:00.000Z",
+                            to_date= "2023-12-22T15:30:00.000Z",
                             stock_code=stock,
                             exchange_code="NSE",
                             product_type="cash")
@@ -41,16 +41,16 @@ for stock in stock_list:
             print("Empty dataframe for " + stock)
             continue
         #pickle the entries dictionary for each stock symbol in the stock_list to a file in pickles directory
-        pickle.dump(entries, open("pickles/" + stock + ".p", "wb"))
+        #pickle.dump(entries, open("pickles/" + stock + ".p", "wb"))
         #print(df)
         
         # Calculate the EMA with a period of 5 days and a weighting factor of 0.2
-        #df['ema'] = df['close'].ewm(span=10, adjust=False, min_periods=0).mean()
+        df['ema'] = df['close'].ewm(span=10, adjust=False, min_periods=0).mean()
 
         #print(df)
         # if 'ema' in df is between close and open of the corresponding day, then print the date
-        #if df['ema'].iloc[-1] > df['open'].iloc[-1] and df['ema'].iloc[-1] < df['close'].iloc[-1]:
-            #print(df['datetime'].iloc[-1] + " for " + stock + " open: " + str(df['open'].iloc[-1]) + " close: " + str(df['close'].iloc[-1]) + " ema: " + str(df['ema'].iloc[-1]))
+        if df['ema'].iloc[-1] > df['open'].iloc[-1] and df['ema'].iloc[-1] < df['close'].iloc[-1]:
+            print(df['datetime'].iloc[-1] + " for " + stock + " open: " + str(df['open'].iloc[-1]) + " close: " + str(df['close'].iloc[-1]) + " ema: " + str(df['ema'].iloc[-1]))
     time.sleep(1)
 """
 entries = breeze.get_historical_data_v2(interval="1day",

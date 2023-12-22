@@ -1,2 +1,4 @@
 breeze_connect
 openpyxl
+black
+pylint
