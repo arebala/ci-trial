@@ -9,7 +9,7 @@ print("Connected")
 time.sleep(1)
 # Generate Session
 breeze.generate_session(api_secret="7461r00e81824W51^0q17n7a8P4764#0",
-                        session_token="29628383")
+                        session_token="29770677")
 time.sleep(1)
 # read stock symbols from Pala_Group_Companies.xlsx and store in a list
 df = pd.read_excel('Pala_Group_Companies.xlsx', sheet_name='Sheet1')
